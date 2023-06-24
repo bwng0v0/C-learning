@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #define size 20
+// oj가 itoa를 컴파일 못해서 sprintf로 해결 sprintf가 더 좋은듯
 char *to_str( int*str_size, unsigned int *arr );
 
 int main(){
@@ -21,26 +22,24 @@ char *to_str( int*str_size, unsigned int *arr ){
 	char tmp_str[3][size]; //3행 20열 2차원 문자 배열
 
 	for( i=0; i<3; i++ ){
-		itoa( arr[i], tmp_str[i] , 10 ); //tmp str에 3개 u int 각각저장
+		sprintf( tmp_str[i] , "%d" , arr[i] );
 	}
 
 	for( i=0; i<3; i++ ){
-	len_sum = strlen( tmp_str[i] ); //3문자열의 길이 구하기 
+	len_sum = len_sum + strlen(tmp_str[i]); // 3개 문자열의 길이 구하기 
 	}
-
+	
 	char *str;
-	str = (char*)malloc( len_sum );
+	str = (char*)malloc( sizeof(char)*len_sum ); // 2(사이의 공백) + 1(널 문자) + 문자열 길이 만큼 메모리할당
 
 
 	strcpy( str , tmp_str[0] );
-
-	for( i=0; i<3; i++ ){
-	str[strlen(str)+1] = ' ';
-	str[strlen(str)+2] = '\0';
+	for( i=1; i<3; i++ ){ //범위 설정 잘못함 첫 문자열은 이미 넣고 시작해서 1부터가 맞음
+	strcat( str , " " );
 	strcat( str , tmp_str[i] );
 	}
 	
-	*str_size = strlen(str);
+	*str_size = strlen(str); //size도 전달 해주고
 	return str;
 }
 /*

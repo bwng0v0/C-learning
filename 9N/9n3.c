@@ -16,7 +16,7 @@ avg = get_array_avg(list, n);
 
 std = get_array_std(list, avg, n);
 
-printf("%.2llf %.2llf",avg ,std);
+printf("%.2lf %.2lf",avg ,std);
 
 	return 0;
 }
